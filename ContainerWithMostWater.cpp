@@ -6,24 +6,23 @@ using namespace std;
 int calculate(vector<int> height)
 {
     int maxDistance = 0;
-    for (int i = 0; i < height.size(); i++)
+    for (int i = 0, j = height.size() - 1; i < j;)
     {
-        for (int j = i + 1; j < height.size(); j++)
+        if (height[i] < height[j])
         {
-            if (height[i] < height[j])
+            if (height[i] * (j - i) > maxDistance)
             {
-                if (height[i] * (j - i) > maxDistance)
-                {
-                    maxDistance = height[i] * (j - i);
-                }
+                maxDistance = height[i] * (j - i);
             }
-            else
+            i++;
+        }
+        else
+        {
+            if (height[j] * (j - i) > maxDistance)
             {
-                if (height[j] * (j - i) > maxDistance)
-                {
-                    maxDistance = height[j] * (j - i);
-                }
+                maxDistance = height[j] * (j - i);
             }
+            j--;
         }
     }
     return maxDistance;
