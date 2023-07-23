@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<unordered_map>
+#include<algorithm>
 using namespace std;
 class Solution {
 public:
@@ -48,7 +49,33 @@ public:
         }
         return res;
     }
-    /* Approach 3 */
+    /* Approach 3 i.e. using sorting and two pointer approach
+    time complexity O(nlgn)
+    space complexity O(1)
+    */
+
+   vector<int> twoSum2(vector<int>& nums, int target) {
+        vector<int> res;
+        sort(nums.begin(), nums.end());
+        int left = 0;
+        int right = nums.size() - 1;
+        int sum = nums[left] + nums[right];
+        while(sum != target && left < right)
+        {
+            if(sum < target)
+            {
+                left++;
+            }
+            else
+            {
+                right--;
+            }
+            sum = nums[left] + nums[right];
+        }
+        res.push_back(nums[left]);
+        res.push_back(nums[right]);
+        return res;
+    }
 };
 int main()
 {
@@ -63,7 +90,7 @@ int main()
         cin >> n;
     }
     Solution s;
-    vector<int> res = s.twoSum1(num, 9);
+    vector<int> res = s.twoSum2(num, 9);
     for (int i = 0; i < res.size(); i++)
     {
         cout << res[i] << ", ";
