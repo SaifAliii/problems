@@ -4,10 +4,13 @@
 using namespace std;
 int nonCOnstructibleChange(vector<int> coins)
 {
-
     int change = 0;
-    if(coins.size() == 0)
+    if(coins.size() < 2 )
     {
+        if(coins.size() > 0 && coins[0]== 1)
+        {
+            return 2;
+        }
         return change + 1;
     }
     sort(coins.begin(), coins.end());
@@ -19,7 +22,7 @@ int nonCOnstructibleChange(vector<int> coins)
             return change + 1;
         } 
     }
-    return -1;
+    return change + coins[coins.size() - 1] + 1;
 }
 int main()
 {
