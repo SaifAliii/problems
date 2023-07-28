@@ -21,7 +21,7 @@ int nonCOnstructibleChange(vector<int> coins)
         {
             return change + 1;
         } 
-    }
+    }   
     return change + coins[coins.size() - 1] + 1;
 }
 int main()
