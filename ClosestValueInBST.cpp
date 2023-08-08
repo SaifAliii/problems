@@ -44,12 +44,28 @@ int findClosestValueInBst(BST* tree, int target) {
   {
     return tree->value;
   }
+  int match = INT32_MAX;
   while(tree->left != nullptr || tree->right != nullptr)
   {
     if(target < tree->value && tree->left != nullptr)
     {
+        if(target > tree->value)
+        {
+            if(target - tree->value < match)
+            {
+                match = target-tree->value;
+            }
+        }
+        if(target < 0 && tree->value < 0 )
+        {
+            if(tree->value - target < match)
+            {
+                match = tree->value - target;
+            }
+        }
         cout << "Left side\n";
       tree = tree->left;
+      
       cout << "Left side tree value: " << tree->value <<endl;
     }
     else if(target > tree->value && tree->right != nullptr)
