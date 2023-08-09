@@ -45,21 +45,23 @@ int findClosestValueInBst(BST* tree, int target) {
     return tree->value;
   }
   int match = INT32_MAX;
+  int possible = -1;
   while(tree->left != nullptr || tree->right != nullptr)
   {
     if(target < tree->value && tree->left != nullptr)
     {
-        if(target > tree->value)
+        if(target < 0 && tree->value < 0 )
         {
-            if(target - tree->value < match)
+            if(tree->value + target > match)
             {
-                match = target-tree->value;
+                match = tree->value + target;
             }
         }
-        if(target < 0 && tree->value < 0 )
+        else
         {
             if(tree->value - target < match)
             {
+                possible = tree->value;
                 match = tree->value - target;
             }
         }
@@ -70,6 +72,11 @@ int findClosestValueInBst(BST* tree, int target) {
     }
     else if(target > tree->value && tree->right != nullptr)
     {
+            if(target - tree->value < match)
+            {
+                possible = tree->value;
+                match = target-tree->value;
+            }
         cout << "Right Side\n";
       tree = tree->right;
       cout << "Right side Tree value: " << tree->value << endl;
@@ -81,7 +88,7 @@ int findClosestValueInBst(BST* tree, int target) {
     }
   }
   // Write your code here.
-  return tree->value;
+  return possible;
 }
 
 int main()
@@ -112,5 +119,5 @@ int main()
     tree.insert(1);
     tree.insert(-51);
     tree.insert(-403);
-    cout << "The Closest Value in BST is: " << findClosestValueInBst(&tree, 208);
+    cout << "The Closest Value in BST is: " << findClosestValueInBst(&tree, 30000);
 }
