@@ -1,5 +1,4 @@
 #include<iostream>
-using namespace std;
 class BST {
 public:
   int value;
@@ -35,61 +34,62 @@ BST& BST::insert(int val) {
     }
   }
 }
+using namespace std;
 int findClosestValueInBst(BST* tree, int target) {
-  if(tree == nullptr)
-  {
-    return -1;
-  }
-  if(tree->left == nullptr && tree->right == nullptr)
-  {
-    return tree->value;
-  }
-  int match = INT32_MAX;
-  int possible = -1;
-  while(tree != nullptr)
-  {
-    if(target < tree->value && tree->left != nullptr)
+    if(tree==nullptr)
     {
-        if(target < 0 && tree->value < 0 )
+        return -1;
+    }
+    if(tree->left == nullptr && tree->right == nullptr)
+    {
+        return tree->value;
+    }
+    int difference = INT16_MAX;
+    int possible;
+    while(tree->left != nullptr || tree->right != nullptr)
+    {
+        if(target < tree->value && tree->left != nullptr)
         {
-            if(tree->value + target > match)
+            if(tree->value - target < difference)
             {
+                difference = tree->value-target;
                 possible = tree->value;
-                match = tree->value + target;
+                cout << "possible: " << possible << endl;
             }
+            tree = tree->left;
+            cout << "Left Side Value: " << tree->value << "\n";
+        }
+        else if(target > tree->value && tree->right != nullptr)
+        {
+            if(target - tree->value < difference)
+            {
+                difference = target - tree->value;
+                possible = tree->value;
+            }
+            tree = tree->right;
         }
         else
         {
-            if(tree->value - target < match)
-            {
-                possible = tree->value;
-                match = tree->value - target;
-            }
+            break;
         }
-        cout << "Left side\n";
-      tree = tree->left;
-      
-      cout << "Left side tree value: " << tree->value <<endl;
     }
-    else if(target > tree->value && tree->right != nullptr)
+    if(tree->value >= target)
     {
-            if(target - tree->value < match)
+         if(tree->value - target < difference)
             {
-                possible = tree->value;
-                match = target-tree->value;
-            }
-        cout << "Right Side\n";
-      tree = tree->right;
-      cout << "Right side Tree value: " << tree->value << endl;
+                return tree->value;
+        }
+          
+        
     }
     else
     {
-        cout << "Equal value\n";
-      return tree->value;
+        if(target - tree->value < difference)
+        {
+            return tree->value;
+        }
     }
-  }
-  // Write your code here.
-  return possible;
+    return possible;
 }
 
 int main()
@@ -120,5 +120,6 @@ int main()
     tree.insert(1);
     tree.insert(-51);
     tree.insert(-403);
-    cout << "The Closest Value in BST is: " << findClosestValueInBst(&tree, 4501);
+    int target = 2000;
+    cout << "The Closest Value to target: " << target <<  " in BST is: " << findClosestValueInBst(&tree, target);
 }
