@@ -78,8 +78,6 @@ int findClosestValueInBst(BST* tree, int target) {
             {
                 return tree->value;
         }
-          
-        
     }
     else
     {
