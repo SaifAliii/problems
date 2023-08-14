@@ -19,26 +19,21 @@ vector<int> branchSumHelper(BinaryTree* root, int sum, vector<int> result)
 {
     if(root == nullptr)
     {
-        cout << "Root is Returned\n";
         return result;
     }
     sum = sum + root->value;
     if(root->left)
     {
-        cout << "left side\n";
         result = branchSumHelper(root->left, sum, result);
-        cout << "Sum is sum: " << sum << endl;
     }
     if(root->right)
     {
-        cout << "right side\n";
         result = branchSumHelper(root->right, sum, result);
     }
     if(root->left == nullptr && root->right == nullptr)
     {
         result.push_back(sum);
     }
-    cout << "vector returned sum is: " << sum << endl; 
     return result;
 }
 vector<int> branchSum(BinaryTree * root)
