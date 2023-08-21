@@ -30,3 +30,10 @@ bool generateDocument(string characters, string document)
     }
     return true;
 }
+int main()
+{
+    string characters = "Bste!hetsi ogEAxpelrt x ";
+    string doucment = "AlgoExpert is the best!";
+    cout << generateDocument(characters, doucment) << endl;
+    return 0;
+}
