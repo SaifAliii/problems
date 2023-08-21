@@ -27,6 +27,10 @@ bool generateDocument(string characters, string document)
                 return false;
              }
         } 
+        else
+        {
+            return false;
+        }
     }
     return true;
 }
