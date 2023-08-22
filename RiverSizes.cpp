@@ -2,7 +2,47 @@
 #include <vector>
 using namespace std;
 
+vector<int> riverSizesHelper(vector<vector<int>> matrix, int row, int col, int sum, vector<int>sizes)
+{
+    if(row == matrix.size())
+    {
+        row = 0;
+    }
+    if(matrix[row][col] == 1)
+    {
+        matrix[row][col] = 0;
+        sum++;
+        if(row > 0 && matrix[row - 1][col] == 1)
+        {
+            sizes = riverSizesHelper(matrix, row - 1, col, sum, sizes);
+        }
+        if(row < matrix.size() && matrix[row + 1][col] == 1)
+        {
+            sizes = riverSizesHelper(matrix, row + 1, col, sum, sizes);
+        }
+        if(col > 0 && matrix[row][col - 1] == 1)
+        {
+            sizes = riverSizesHelper(matrix, row, col - 1, sum, sizes);
+        }
+        if(col < matrix[row].size() && matrix[row][col + 1] == 1)
+        {
+            sizes = riverSizesHelper(matrix, row, col + 1, sum, sizes);
+        }
+    }
+    else
+    {
+        sizes = riverSizesHelper(matrix, row, col + 1, sum, sizes);
+    }
+    
+    
+} 
 vector<int> riverSizes(vector<vector<int>> matrix) 
+{
+    vector<int> sizes;
+    int sum;
+    return riverSizesHelper(matrix, 0, 0, sum, sizes);
+}
+vector<int> riverSizes1(vector<vector<int>> matrix) 
 {
     vector<int> sizes;
     int size = 0;
