@@ -2,45 +2,75 @@
 #include <vector>
 using namespace std;
 
-vector<int> riverSizesHelper(vector<vector<int>> matrix, int row, int col, int sum, vector<int>sizes)
+int riverSizesHelper(vector<vector<int>>& matrix, int row, int col, int sum, vector<int>sizes)
 {
+    cout << "Recurrsion row: " << row << " col: " << col << "\n" ;
     if(row == matrix.size())
     {
-        row = 0;
+        cout << "Row limit Reached Returning\n";
+        return sum;
+    }
+    if(col == matrix[row].size())
+    {
+        cout << "Col limit Reached ";
+        row++;
+        if(row == matrix.size())
+        {
+            cout << "Row limit reached Returing After Col increment\n";
+            return sum;
+        }
+        cout << "New Row incremented\n";
+        col = 0;
     }
     if(matrix[row][col] == 1)
     {
+        cout << "1 found\n";
         matrix[row][col] = 0;
         sum++;
         if(row > 0 && matrix[row - 1][col] == 1)
         {
-            sizes = riverSizesHelper(matrix, row - 1, col, sum, sizes);
+            cout << "going up\n";
+            sum = riverSizesHelper(matrix, row - 1, col, sum, sizes);
         }
-        if(row < matrix.size() && matrix[row + 1][col] == 1)
+        if(row < matrix.size() - 1 && matrix[row + 1][col] == 1)
         {
-            sizes = riverSizesHelper(matrix, row + 1, col, sum, sizes);
+            cout << "going down\n";
+            sum = riverSizesHelper(matrix, row + 1, col, sum, sizes);
         }
         if(col > 0 && matrix[row][col - 1] == 1)
         {
-            sizes = riverSizesHelper(matrix, row, col - 1, sum, sizes);
+            cout << "going left\n";
+            sum = riverSizesHelper(matrix, row, col - 1, sum, sizes);
         }
-        if(col < matrix[row].size() && matrix[row][col + 1] == 1)
+        if(col < matrix[row].size() - 1 && matrix[row][col + 1] == 1)
         {
-            sizes = riverSizesHelper(matrix, row, col + 1, sum, sizes);
+            cout << "going right\n";
+            sum = riverSizesHelper(matrix, row, col + 1, sum, sizes);
         }
     }
-    else
-    {
-        sizes = riverSizesHelper(matrix, row, col + 1, sum, sizes);
-    }
-    
-    
+    cout << "Returning after all conditions Sum: " << sum << "\n";
+    return sum;
 } 
 vector<int> riverSizes(vector<vector<int>> matrix) 
 {
     vector<int> sizes;
-    int sum;
-    return riverSizesHelper(matrix, 0, 0, sum, sizes);
+    int sum = 0;
+    for(int i = 0; i < matrix.size(); i++)
+    {
+        for(int j = 0; j < matrix[i].size(); j++)
+        {
+            cout << "Parent function calling, i: " << i << " j: " << j << endl;
+            sum = riverSizesHelper(matrix, i, j, sum, sizes);
+            cout << "sum Returned in Parent\n";
+            if(sum > 0)
+            {
+                sizes.push_back(sum);
+            }
+            
+            sum = 0;
+        }
+    }
+    return sizes;
 }
 vector<int> riverSizes1(vector<vector<int>> matrix) 
 {
@@ -131,6 +161,7 @@ int main()
     for(const auto& size: riverSize)
     {
         cout << size << " ";
+
     }
     return 0;   
 }
