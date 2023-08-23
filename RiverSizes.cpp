@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-int riverSizesHelper(vector<vector<int>>& matrix, int row, int col, int sum, vector<int>sizes)
+int riverSizesHelper(vector<vector<int>>& matrix, int row, int col, int sum)
 {
     if(matrix[row][col] == 1)
     {
@@ -10,19 +10,19 @@ int riverSizesHelper(vector<vector<int>>& matrix, int row, int col, int sum, vec
         sum++;
         if(row > 0 && matrix[row - 1][col] == 1)
         {
-            sum = riverSizesHelper(matrix, row - 1, col, sum, sizes);
+            sum = riverSizesHelper(matrix, row - 1, col, sum);
         }
         if(row < matrix.size() - 1 && matrix[row + 1][col] == 1)
         {
-            sum = riverSizesHelper(matrix, row + 1, col, sum, sizes);
+            sum = riverSizesHelper(matrix, row + 1, col, sum);
         }
         if(col > 0 && matrix[row][col - 1] == 1)
         {
-            sum = riverSizesHelper(matrix, row, col - 1, sum, sizes);
+            sum = riverSizesHelper(matrix, row, col - 1, sum);
         }
         if(col < matrix[row].size() - 1 && matrix[row][col + 1] == 1)
         {
-            sum = riverSizesHelper(matrix, row, col + 1, sum, sizes);
+            sum = riverSizesHelper(matrix, row, col + 1, sum);
         }
     }
     return sum;
@@ -35,12 +35,11 @@ vector<int> riverSizes(vector<vector<int>> matrix)
     {
         for(int j = 0; j < matrix[i].size(); j++)
         {
-            sum = riverSizesHelper(matrix, i, j, sum, sizes);
+            sum = riverSizesHelper(matrix, i, j, sum);
             if(sum > 0)
             {
                 sizes.push_back(sum);
             }
-            
             sum = 0;
         }
     }
