@@ -93,14 +93,15 @@ bool validateBstHelper(BST* tree, vector<int>* array, string direction)
     if(tree->left)
     {
         cout << "Moving Left\n";
-        lStatus = validateBstHelper(tree->left, array, "left");
+        lStatus = validateBstHelper(tree->left, array, direction);
     }    
     cout << "Moving Middle\n";
     mStatus = insertInArray(tree->value, array, direction);
     if(tree->right)
     {
         cout << "Moving Right\n";
-        rStatus = validateBstHelper(tree->right, array, "right");
+        direction = "right";
+        rStatus = validateBstHelper(tree->right, array, direction);
     }
     if(lStatus == false || rStatus == false || mStatus == false)
     {
@@ -115,7 +116,7 @@ bool validateBst(BST* tree)
 {
     cout << "Parent function\n";
     vector<int> array;
-    return validateBstHelper(tree, &array, "middle");
+    return validateBstHelper(tree, &array, "left");
 }
 int main()
 {
