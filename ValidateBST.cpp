@@ -38,45 +38,33 @@ BST& BST::insert(int val) {
 }
 bool insertInArray(int value, vector<int>* array, string direction)
 {
-    cout << "Member Function, Value: " << value << "\n";
     array->push_back(value);
     if(array->size() >= 2)
     {
-
-        cout << " More than 2 elements, size: " << array->size() << "; \n";
-        cout << "Last element: " << (*array)[array->size() - 1] << endl;
-        cout << "Second Last element: " << (*array)[array->size() - 2] << endl;
         if(direction != "right")
         {
-            cout << "Called from left or middle\n";
             
             if((*array)[array->size() - 1] > (*array)[array->size() - 2])
             {
-                cout << "Condition True return true\n";
                 return true;
             }
             else
             {
-                cout << "Return False\n";
                 return false;
             }
         }
         else
         {
-            cout<< "Called from right side\n";
             if((*array)[array->size() - 1] >= (*array)[array->size()-2])
             {
-                cout << "Condition True return true\n";
                 return true;
             }
             else
             {
-                cout << "Condition False return false\n";
                 return false;
             }
         }
     }
-    cout << "Returning true\n";
     return true;
 }
 bool validateBstHelper(BST* tree, vector<int>* array, string direction) 
@@ -87,30 +75,31 @@ bool validateBstHelper(BST* tree, vector<int>* array, string direction)
     bool mStatus = true;
     if(tree->left == nullptr && tree->right == nullptr)
     {
-        cout << "End Node\n";
-       return insertInArray(tree->value, array, direction);
+        return insertInArray(tree->value, array, direction);
     }
     if(tree->left)
     {
-        cout << "Moving Left\n";
         lStatus = validateBstHelper(tree->left, array, direction);
+        if(lStatus == false)
+        {
+            return false;
+        }
     }    
-    cout << "Moving Middle\n";
     mStatus = insertInArray(tree->value, array, direction);
-    if(tree->right)
-    {
-        cout << "Moving Right\n";
-        direction = "right";
-        rStatus = validateBstHelper(tree->right, array, direction);
-    }
-    if(lStatus == false || rStatus == false || mStatus == false)
+    if(mStatus == false)
     {
         return false;
     }
-    else
+    if(tree->right)
     {
-        return true;
+        direction = "right";
+        rStatus = validateBstHelper(tree->right, array, direction);
+        if(rStatus == false)
+        {
+            return false;
+        }
     }
+    return true;
 }
 bool validateBst(BST* tree) 
 {
@@ -126,8 +115,6 @@ int main()
     tree.left->right = new BST(15);
     tree.left->right->right = new BST(22);
     tree.left->right->left = new BST(5);
-   
     cout << validateBst(&tree) << endl;
-    
     return 0;
 }
