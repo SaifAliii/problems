@@ -42,12 +42,14 @@ bool insertInArray(int value, vector<int>* array, string direction)
     array->push_back(value);
     if(array->size() >= 2)
     {
+
         cout << " More than 2 elements, size: " << array->size() << "; \n";
+        cout << "Last element: " << (*array)[array->size() - 1] << endl;
+        cout << "Second Last element: " << (*array)[array->size() - 2] << endl;
         if(direction != "right")
         {
             cout << "Called from left or middle\n";
-            cout << "Last element: " << (*array)[array->size() - 1] << endl;
-            cout << "Second Last element: " << (*array)[array->size() - 2] << endl;
+            
             if((*array)[array->size() - 1] > (*array)[array->size() - 2])
             {
                 cout << "Condition True return true\n";
@@ -94,7 +96,7 @@ bool validateBstHelper(BST* tree, vector<int>* array, string direction)
         lStatus = validateBstHelper(tree->left, array, "left");
     }    
     cout << "Moving Middle\n";
-    mStatus = insertInArray(tree->value, array, "middle");
+    mStatus = insertInArray(tree->value, array, direction);
     if(tree->right)
     {
         cout << "Moving Right\n";
@@ -117,15 +119,13 @@ bool validateBst(BST* tree)
 }
 int main()
 {
-    BST tree(10);
+    BST tree(5000);
     tree.left = new BST(5);
     tree.left->left = new BST(2);
-    tree.left->left->left = new BST(1);
-    tree.left->right = new BST(5);
-    tree.right = new BST(15);
-    tree.right->left = new BST(13);
-    tree.right->right = new BST(22);
-    tree.right->left->right = new BST(14);
+    tree.left->right = new BST(15);
+    tree.left->right->right = new BST(22);
+    tree.left->right->left = new BST(5);
+   
     cout << validateBst(&tree) << endl;
     
     return 0;
