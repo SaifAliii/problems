@@ -69,7 +69,6 @@ bool insertInArray(int value, vector<int>* array, string direction)
 }
 bool validateBstHelper(BST* tree, vector<int>* array, string direction) 
 {
-    cout << "Helper Function\n";
     bool lStatus = true;
     bool rStatus = true;
     bool mStatus = true;
@@ -103,7 +102,6 @@ bool validateBstHelper(BST* tree, vector<int>* array, string direction)
 }
 bool validateBst(BST* tree) 
 {
-    cout << "Parent function\n";
     vector<int> array;
     return validateBstHelper(tree, &array, "left");
 }
