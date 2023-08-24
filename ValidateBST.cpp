@@ -1,6 +1,5 @@
 #include<iostream>
-#include<vector>
-#include<string>
+#include<climits> 
 using namespace std;
 class BST {
  public:
@@ -36,74 +35,25 @@ BST& BST::insert(int val) {
     }
   }
 }
-bool insertInArray(int value, vector<int>* array, string direction)
+bool validateBstHelper(BST* tree, int min, int max) 
 {
-    array->push_back(value);
-    if(array->size() >= 2)
-    {
-        if(direction != "right")
-        {
-            
-            if((*array)[array->size() - 1] > (*array)[array->size() - 2])
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            if((*array)[array->size() - 1] >= (*array)[array->size()-2])
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
-    return true;
-}
-bool validateBstHelper(BST* tree, vector<int>* array, string direction) 
-{
-    bool lStatus = true;
-    bool rStatus = true;
-    bool mStatus = true;
-    if(tree->left == nullptr && tree->right == nullptr)
-    {
-        return insertInArray(tree->value, array, direction);
-    }
-    if(tree->left)
-    {
-        lStatus = validateBstHelper(tree->left, array, direction);
-        if(lStatus == false)
-        {
-            return false;
-        }
-    }    
-    mStatus = insertInArray(tree->value, array, direction);
-    if(mStatus == false)
+    if(tree->value < min || tree->value >= max)
     {
         return false;
     }
-    if(tree->right)
+    if(tree->left != nullptr && !validateBstHelper(tree->left, min, tree->value))
     {
-        direction = "right";
-        rStatus = validateBstHelper(tree->right, array, direction);
-        if(rStatus == false)
-        {
-            return false;
-        }
+        return false;
+    }
+    if(tree->right != nullptr && !validateBstHelper(tree->right, tree->value, max))
+    {
+        return false;
     }
     return true;
 }
 bool validateBst(BST* tree) 
 {
-    vector<int> array;
-    return validateBstHelper(tree, &array, "left");
+    return validateBstHelper(tree, INT_MIN, INT_MAX);
 }
 int main()
 {
