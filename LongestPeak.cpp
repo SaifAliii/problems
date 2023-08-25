@@ -3,59 +3,60 @@
 using namespace std;
 int longestPeak(vector<int> array) 
 {
-    int tempLength = 1;
-    int length = 0;
+    int length = 1;
+    int tempLength = 0;
     int temp;
-    bool status = false;
-    bool dec = false;
+    bool increase = false;
+    bool decrease = false;
+    bool any = false;
     for(int i = 0; i < array.size() - 1;)
     {
-        temp = array[i];
-        cout << "temp is: " << temp << " ,and i is: " << i << endl;
-        if(tempLength > length)
+        while(i < array.size() - 1 && array[i] < array[i + 1])
         {
-            cout << "condition True\n";
-            length = tempLength;
-        }
-        tempLength = 1;
-        i++;
-        while(i < array.size() && temp < array[i])
-        {
-            cout <<  "In increasing loop, temp is: "<<temp << " ,array[i] is: " << array[i] <<" and i is: " << i << endl;
-            temp = array[i];
-            tempLength++;
-            cout << "Length is: " << tempLength << endl;
-            status = true;
+            if(!any)
+            {
+                length = 1;
+            }
+            if(decrease)
+            {
+                length = 1;
+                decrease = false;
+            }
+            length++;
             i++;
+            increase = true;
+            any = true;
         }
-        while(status && i < array.size() && temp > array[i])
+        while(i < array.size() - 1 && !(array[i] < array[i + 1]))
         {
-            cout <<  "In decresing loop, temp is: "<<temp << " ,array[i] is: " << array[i] <<" and i is: " << i << endl;
-            temp = array[i];
-            tempLength++;
-            cout << "Length is: " << tempLength << endl;
+            if(array[i] == array[i + 1])
+            {
+                cout << "condition true\n";
+                length = 0;
+                any = false;
+            }
             i++;
-            dec = true;
+            length++;
+            decrease = true;
         }
-        status = false;
-        if(dec == false)
+        if(increase)
         {
-            tempLength = 1;
+            increase = false;
         }
     }
-    if(length > 3)
+    if(!decrease)
     {
-        tempLength = length;
+        return 0;
     }
-    if(tempLength < 3)
+    if(!any)
     {
-        tempLength = 0;
+        return 0;
     }
-    return tempLength;
+    return length;
 }
 int main()
 {
-    vector<int> array = {1, 2, 3, 3, 4, 0, 10, 6, 5, -1, -3, 2, 3};
+    vector<int> array = {1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, -1, -2};
     cout << longestPeak(array) << endl;
     return 0;
 }
