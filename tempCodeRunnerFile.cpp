@@ -1,9 +1,4 @@
-list->next->next = new LinkedList(3);
-    list->next->next->next = new LinkedList(4);
-    list->next->next->next->next = new LinkedList(4);
-    list->next->next->next->next->next = new LinkedList(4);
-    list->next->next->next->next->next->next = new LinkedList(5);
-    list->next->next->next->next->next->next->next = new LinkedList(6);
-    list->next->next->next->next->next->next->next->next = new LinkedList(6);
-    list->next->next->next->next->next->next->next->next->next = new LinkedList(6);
-    list->next->next->next->next->next->next->next->next->next->next = new LinkedList(6);
+if(array.empty())
+    // {
+    //   return 0;
+    // }

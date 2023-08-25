@@ -9,6 +9,11 @@ int longestPeak(vector<int> array)
     bool increase = false;
     bool decrease = false;
     bool any = false;
+    bool down = false;
+    if(array.empty())
+    {
+      return 0;
+    }
     for(int i = 0; i < array.size() - 1;)
     {
         while(i < array.size() - 1 && array[i] < array[i + 1])
@@ -19,6 +24,10 @@ int longestPeak(vector<int> array)
             }
             if(decrease)
             {
+                if(length > tempLength)
+                {
+                    tempLength = length;
+                }
                 length = 1;
                 decrease = false;
             }
@@ -32,19 +41,25 @@ int longestPeak(vector<int> array)
             if(array[i] == array[i + 1])
             {
                 cout << "condition true\n";
-                length = 0;
+                if(length > tempLength)
+                {
+                    tempLength = length;
+                    length = 1;
+                }
                 any = false;
+                if(i + 1 == array.size()-1)
+                {
+                    any = true;
+                }
             }
             i++;
             length++;
             decrease = true;
-        }
-        if(increase)
-        {
-            increase = false;
+            down = true;
         }
     }
-    if(!decrease)
+    cout << "temp Length: " << tempLength << " length: " << length << " and deacrese: " << decrease << endl;
+    if(!decrease && tempLength == 1)
     {
         return 0;
     }
@@ -52,11 +67,15 @@ int longestPeak(vector<int> array)
     {
         return 0;
     }
-    return length;
+    if(tempLength < length && decrease)
+    {
+        return length;
+    }
+    return tempLength;
 }
 int main()
 {
-    vector<int> array = {1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, -1, -2};
+    vector<int> array = {};
     cout << longestPeak(array) << endl;
     return 0;
 }
