@@ -1,4 +1,4 @@
-if(array.empty())
+if(n== k)
     // {
-    //   return 0;
+    //     return head;
     // }
