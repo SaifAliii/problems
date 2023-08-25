@@ -10,12 +10,13 @@ int longestPeak(vector<int> array)
     bool decrease = false;
     bool any = false;
     bool down = false;
-    if(array.empty())
+    // if(array.empty())
+    // {
+    //   return 0;
+    // }
+    for(int i = 0; i < int(array.size() - 1);)
     {
-      return 0;
-    }
-    for(int i = 0; i < array.size() - 1;)
-    {
+        cout << "condition true array size is: " << array.size() << "\n";
         while(i < array.size() - 1 && array[i] < array[i + 1])
         {
             if(!any)
