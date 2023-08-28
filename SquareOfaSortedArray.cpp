@@ -3,35 +3,32 @@
 using namespace std;
 vector<int> sortedSquares(vector<int>& nums) 
 {
-    int num;
-    int temp;
-    for(int i = 0, j = nums.size() - 1; i != j; )
+    vector<int> res(nums.size());
+    int index = nums.size() - 1;
+    for(int i = 0, j = nums.size() - 1; i <= j; )
     {   
-        if( abs(nums[i]) > abs(nums[j]))
+        
+        if((nums[i] * nums[i]) > (nums[j] * nums[j]))
         {
-            temp = nums[i];
-            nums[i] = nums[j];
-            nums[j] = temp;
-            j--;
+            res[index] = (nums[i] * nums[i]);
+            i++;
         }
         else
         {
+            res[index] = (nums[j] * nums[j]);
             j--;
         }
+        index--;
     }
-    for(int i = 0; i < nums.size(); i++)
-    {
-        nums[i] = (nums[i] * nums[i]);
-    }
-    return nums;
+    return res;
 }
 int main()
 {
-    vector<int> array = {-11, -4, -1, 0, 3, 10, 12};
+    vector<int> array = {-7,-3,2,3,11};
     array = sortedSquares(array);
     for(const auto& el: array)
     {
-        cout << el;
+        cout << el << " ";
     }
     return 0;
 }
