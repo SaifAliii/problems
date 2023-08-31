@@ -32,7 +32,7 @@ int removeDuplicates(vector<int>& nums)
 }
 int main()
 {
-    vector<int> nums = {1, 1, 2, 2 ,2, 2, 2, 2, 2, 2, 2, 2, 3};
+    vector<int> nums = {1, 1, 2, 2 ,2, 2, 2, 2, 2, 2, 2, 2, 3   };
     int uniqueElements = removeDuplicates(nums);
     cout << "\nUnique Elements: " << uniqueElements << endl;
     return 0;
