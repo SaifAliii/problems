@@ -3,38 +3,20 @@
 using namespace std;
 int removeElement(vector<int>& nums, int val) 
 {
-    int temp, j =1;
-    int i = 0;
-    bool status = false;
-    int size = nums.size();
-    if(size == 1 && nums[i] == val)
+    int count = 0;
+    for(int i = 0; i < nums.size(); i++)
     {
-        return 0;
-    }
-    for(; i < size && j < size ; j++)
-    {
-        if(nums[i] != nums[j])
+        if(nums[i] != val)
         {
-            if(nums[i] == val)
-            {
-                temp = nums[i];
-                nums[i] = nums[j];
-                nums[j] = temp;
-                status = true;
-            }
-            i++;
+            nums[count] = nums[i];
+            count++;
         }
     }
-    if(!status)
-    {
-        return 0;
-    }
-    return i;
-
+    return count;
 }
 int main()
 {
-    vector<int> nums = {3, 3, 3, 2, 2, 2};
-    cout << "\nResult is: " << removeElement(nums, 2);
+    vector<int> nums = {1, 2, 3, 4};
+    cout << "\nResult is: " << removeElement(nums, 5);
     return 0;
 }
