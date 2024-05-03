@@ -11,7 +11,7 @@ class Solution:
                 res *= x
             return res
         res = helper(x, abs(n))
-        if n <= 0:
+        if n >= 0:
             return res
         else:
             return 1 / res
