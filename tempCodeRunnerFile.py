@@ -1,6 +1,5 @@
-elif (countZeros == 1):
-    #     i = 0
-    #     while (i < len(nums) - 1):
-    #         if (nums[i] != 0):
-    #             preProduct *= nums[i]
-    #         i += 1
+if result[i + j] > 9:
+            #     result[i + j] = result[i + j] % 10
+            #     result[i + j + 1] += result[i + j] // 10
+            #     if result[i + j + 1] > 9:
+            #         result[i + j + 2] += result[i+ j + 1] // 10
